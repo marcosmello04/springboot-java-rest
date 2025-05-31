@@ -16,6 +16,7 @@ public class PersonServices {
 
     // http://localhost:8080/person
     public ArrayList<Person> findAll() {
+        logger.info("Listing People.");
         var list = new ArrayList<Person>();
 
         for (long i = 0; i < 10; i++) {
@@ -33,13 +34,31 @@ public class PersonServices {
     }
 
     public Person newPerson(Long id) {
+        logger.info("New Person.");
         Person person = new Person();
         person.setId(id);
-        person.setFirstName("");
-        person.setLastName("");
-        person.setAddress("");
-        person.setSex("");
+        person.setFirstName("Test");
+        person.setLastName("Test");
+        person.setAddress("Test");
+        person.setSex("Test");
 
         return person;
+    }
+
+    //Post
+    public Person createPerson(Person person) {
+        logger.info("Creating Person.");
+        return person;
+    }
+
+    //Put
+    public Person updatePerson(Person person) {
+        logger.info("Updating Person.");
+        return person;
+    }
+
+    //Delete
+    public void deletePerson(String id) {
+        logger.info("Deleting Person.");
     }
 }
