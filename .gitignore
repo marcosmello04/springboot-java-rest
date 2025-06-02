@@ -1,6 +1,6 @@
 *.class
 
-
+env.properties
 /node_modules
 
 # SSH Keys

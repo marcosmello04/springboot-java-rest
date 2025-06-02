@@ -1,1 +1,24 @@
-spring.application.name=springboot-java-rest
+spring:
+  config:
+    import: optional:file:./env.properties
+  application:
+    name: springboot-java-rest
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/springboot_java_rest?useTimezone=true&serverTimezone=UTC
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        #dialect: org.hibernate.dialect.MySQLDialect
+    show-sql: false
+    open-in-view: false
+logging:
+  level:
+    #root: warn
+    marcosmello04.github: debug
+
+    #spring.jpa.open-in-view - open-in-view: false
