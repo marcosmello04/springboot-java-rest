@@ -1,13 +1,14 @@
 package marcosmello04.github.controllers;
 
+import marcosmello04.github.data.dto.PersonDTO;
 import marcosmello04.github.services.PersonServices;
-import marcosmello04.github.model.Person;
+//import marcosmello04.github.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/person")
@@ -19,25 +20,25 @@ public class PersonController {
 
     //@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ArrayList<Person> findAll() {
+    public List<PersonDTO> findAll() {
         return service.findAll();
     }
 
     //@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person findById(@PathVariable("id") Long id) {
+    public PersonDTO findById(@PathVariable("id") Long id) {
         return service.findById(id);
     }
 
     //@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person createPerson(@RequestBody Person person) {
+    public PersonDTO createPerson(@RequestBody PersonDTO person) {
         return service.createPerson(person);
     }
 
     //@RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person updatePerson(@RequestBody Person person) {
+    public PersonDTO updatePerson(@RequestBody PersonDTO person) {
         return service.updatePerson(person);
     }
 

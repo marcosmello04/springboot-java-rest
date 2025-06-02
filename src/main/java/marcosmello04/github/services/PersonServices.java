@@ -1,15 +1,17 @@
 package marcosmello04.github.services;
 
+import marcosmello04.github.data.dto.PersonDTO;
 import marcosmello04.github.exception.ResourceNotFoundException;
+import static marcosmello04.github.mapper.ObjectMapper.parseObject;
+import static marcosmello04.github.mapper.ObjectMapper.parseListObject;
 import marcosmello04.github.model.Person;
 import marcosmello04.github.repository.PersonRepository;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.logging.Logger;
 
 @Service
 public class PersonServices {
@@ -23,23 +25,19 @@ public class PersonServices {
 
 
     // http://localhost:8080/person
-    public ArrayList<Person> findAll() {
+    public List<PersonDTO> findAll() {
         logger.info("Listing People.");
 
-        return (ArrayList<Person>) repository.findAll();
-        /*
-        var list = new ArrayList<Person>();
-        for (long i = 0; i < 10; i++) {
-            list.add(newPerson(i));
-        }
-        return list;
-        */
+        return parseListObject(repository.findAll(), PersonDTO.class);
+
     }
 
     // http://localhost:8080/person/id
-    public Person findById(Long id) {
+    public PersonDTO findById(Long id) {
         logger.info("Finding Person.");
-        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Person not found."));
+        var entity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Person not found."));
+        return parseObject(entity, PersonDTO.class);
+        //return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Person not found."));
         //return newPerson(counter.incrementAndGet());
     }
 
@@ -58,13 +56,14 @@ public class PersonServices {
     */
 
     //Post
-    public Person createPerson(Person person) {
+    public PersonDTO createPerson(PersonDTO person) {
         logger.info("Creating Person.");
-        return repository.save(person);
+        var entity = parseObject(person, Person.class);
+        return parseObject(repository.save(entity), PersonDTO.class);
     }
 
     //Put
-    public Person updatePerson(Person person) {
+    public PersonDTO updatePerson(PersonDTO person) {
         logger.info("Updating Person.");
         Person entity = repository.findById(person.getId()).orElseThrow(() -> new ResourceNotFoundException("Person not found."));
 
@@ -73,7 +72,7 @@ public class PersonServices {
         entity.setAddress(person.getAddress());
         entity.setSex(person.getSex());
 
-        return repository.save(entity);
+        return parseObject(repository.save(entity), PersonDTO.class);
     }
 
     //Delete
