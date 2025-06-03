@@ -1,9 +1,12 @@
 package marcosmello04.github.services;
 
-import marcosmello04.github.data.dto.PersonDTO;
+import marcosmello04.github.data.dto.v1.PersonDTO;
+import marcosmello04.github.data.dto.v2.PersonDTOV2;
 import marcosmello04.github.exception.ResourceNotFoundException;
 import static marcosmello04.github.mapper.ObjectMapper.parseObject;
 import static marcosmello04.github.mapper.ObjectMapper.parseListObject;
+
+import marcosmello04.github.mapper.custom.PersonMapper;
 import marcosmello04.github.model.Person;
 import marcosmello04.github.repository.PersonRepository;
 import org.slf4j.LoggerFactory;
@@ -23,6 +26,8 @@ public class PersonServices {
     @Autowired
     PersonRepository repository;
 
+    @Autowired
+    PersonMapper converter;
 
     // http://localhost:8080/person
     public List<PersonDTO> findAll() {
@@ -55,11 +60,18 @@ public class PersonServices {
         }
     */
 
-    //Post
+    //Post V1
     public PersonDTO createPerson(PersonDTO person) {
-        logger.info("Creating Person.");
+        logger.info("Creating Person. V1");
         var entity = parseObject(person, Person.class);
         return parseObject(repository.save(entity), PersonDTO.class);
+    }
+
+    //Post V2
+    public PersonDTOV2 createPersonV2(PersonDTOV2 person) {
+        logger.info("Creating Person. V2");
+        var entity = converter.convertDTOtoEntity(person);
+        return converter.convertEntityToDTO(repository.save(entity));
     }
 
     //Put
@@ -69,8 +81,8 @@ public class PersonServices {
 
         entity.setFirstName(person.getFirstName());
         entity.setLastName(person.getLastName());
-        entity.setAddress(person.getAddress());
         entity.setSex(person.getSex());
+        entity.setAddress(person.getAddress());
 
         return parseObject(repository.save(entity), PersonDTO.class);
     }

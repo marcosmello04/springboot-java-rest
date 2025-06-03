@@ -1,6 +1,7 @@
 package marcosmello04.github.controllers;
 
-import marcosmello04.github.data.dto.PersonDTO;
+import marcosmello04.github.data.dto.v1.PersonDTO;
+import marcosmello04.github.data.dto.v2.PersonDTOV2;
 import marcosmello04.github.services.PersonServices;
 //import marcosmello04.github.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,13 @@ public class PersonController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public PersonDTO createPerson(@RequestBody PersonDTO person) {
         return service.createPerson(person);
+    }
+
+    //V2
+    //@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/v2", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public PersonDTOV2 createPersonV2(@RequestBody PersonDTOV2 person) {
+        return service.createPersonV2(person);
     }
 
     //@RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

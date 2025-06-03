@@ -1,4 +1,4 @@
-package marcosmello04.github.data.dto;
+package marcosmello04.github.data.dto.v1;
 
 import java.io.Serializable;
 import java.util.Objects;
