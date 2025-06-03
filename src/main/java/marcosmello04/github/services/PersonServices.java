@@ -46,19 +46,6 @@ public class PersonServices {
         //return newPerson(counter.incrementAndGet());
     }
 
-    /*
-        public Person newPerson(Long id) {
-        logger.info("New Person.");
-        Person person = new Person();
-        person.setId(id);
-        person.setFirstName("Test");
-        person.setLastName("Test");
-        person.setAddress("Test");
-        person.setSex("Test");
-        return person;
-        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Person not found."));
-        }
-    */
 
     //Post V1
     public PersonDTO createPerson(PersonDTO person) {
