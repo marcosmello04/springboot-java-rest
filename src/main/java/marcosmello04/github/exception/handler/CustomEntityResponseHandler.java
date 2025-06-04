@@ -1,6 +1,7 @@
 package marcosmello04.github.exception.handler;
 
 import marcosmello04.github.exception.ExceptionResponse;
+import marcosmello04.github.exception.RequiredObjectIsNullException;
 import marcosmello04.github.exception.ResourceNotFoundException;
 import marcosmello04.github.exception.UnsupportedMathOperationException;
 import org.springframework.http.HttpStatus;
@@ -33,6 +34,12 @@ public class CustomEntityResponseHandler extends ResponseEntityExceptionHandler 
     public final ResponseEntity<ExceptionResponse> handleNotFoundExceptions(Exception exception, WebRequest request) {
         ExceptionResponse response = new ExceptionResponse(new Date(), exception.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(RequiredObjectIsNullException.class)
+    public final ResponseEntity<ExceptionResponse> handleBadRequestObjectNullExceptions(Exception exception, WebRequest request) {
+        ExceptionResponse response = new ExceptionResponse(new Date(), exception.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
 }
