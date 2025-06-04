@@ -4,18 +4,16 @@ package marcosmello04.github.data.dto.v1;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;*/
 
-import com.fasterxml.jackson.annotation.JsonFilter;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonInclude;
+/*import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import marcosmello04.github.serializer.SexSerializer;
+import marcosmello04.github.serializer.SexSerializer;*/
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
 //@JsonPropertyOrder({"id", "first_name", "last_name", "address", "sex"})
-@JsonFilter("PersonFilter")
+//@JsonFilter("PersonFilter")
 public class PersonDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -25,20 +23,17 @@ public class PersonDTO implements Serializable {
     private String firstName;
     //@JsonProperty("last_name")
     private String lastName;
-
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    //@JsonInclude(JsonInclude.Include.NON_NULL)
+    //@JsonFormat(pattern = "dd/MM/yyyy")
     private Date birthday;
-
     private String address;
-
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    //@JsonInclude(JsonInclude.Include.NON_EMPTY)
+    //@JsonInclude(JsonInclude.Include.NON_NULL)
     private String phoneNumber;
-
     //@JsonIgnore
-    @JsonSerialize(using = SexSerializer.class)
+    //@JsonSerialize(using = SexSerializer.class)
     private String sex;
-
+    //@JsonInclude(JsonInclude.Include.NON_NULL)
     private String sensitiveData;
 
     public PersonDTO() {

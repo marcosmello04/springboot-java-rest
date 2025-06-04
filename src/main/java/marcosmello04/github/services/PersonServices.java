@@ -42,8 +42,6 @@ public class PersonServices {
         logger.info("Finding Person.");
         var entity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Person not found."));
         return parseObject(entity, PersonDTO.class);
-        //return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Person not found."));
-        //return newPerson(counter.incrementAndGet());
     }
 
 
