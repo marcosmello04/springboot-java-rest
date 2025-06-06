@@ -1,5 +1,7 @@
 package marcosmello04.github.controllers;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+import marcosmello04.github.controllers.docs.PersonControllerDocs;
 import marcosmello04.github.data.dto.v1.PersonDTO;
 import marcosmello04.github.data.dto.v2.PersonDTOV2;
 import marcosmello04.github.services.PersonServices;
@@ -12,7 +14,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/person/v1")
-public class PersonController {
+@Tag(name = "Personnel", description = "Endpoints for managing personnel")
+public class PersonController implements PersonControllerDocs {
 
     //Inject
     @Autowired
@@ -23,6 +26,7 @@ public class PersonController {
             MediaType.APPLICATION_JSON_VALUE,
             MediaType.APPLICATION_XML_VALUE,
             MediaType.APPLICATION_YAML_VALUE})
+    @Override
     public List<PersonDTO> findAll() {
         return service.findAll();
     }
@@ -32,6 +36,7 @@ public class PersonController {
             MediaType.APPLICATION_JSON_VALUE,
             MediaType.APPLICATION_XML_VALUE,
             MediaType.APPLICATION_YAML_VALUE})
+    @Override
     public PersonDTO findById(@PathVariable("id") Long id) {
         return service.findById(id);
     }
@@ -47,6 +52,7 @@ public class PersonController {
                     MediaType.APPLICATION_JSON_VALUE,
                     MediaType.APPLICATION_XML_VALUE,
                     MediaType.APPLICATION_YAML_VALUE})
+    @Override
     public PersonDTO createPerson(@RequestBody PersonDTO person) {
         return service.createPerson(person);
     }
@@ -76,13 +82,14 @@ public class PersonController {
                     MediaType.APPLICATION_JSON_VALUE,
                     MediaType.APPLICATION_XML_VALUE,
                     MediaType.APPLICATION_YAML_VALUE})
+    @Override
     public PersonDTO updatePerson(@RequestBody PersonDTO person) {
         return service.updatePerson(person);
     }
 
     //@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @DeleteMapping(value = "/{id}")
-    //public void deletePerson(@PathVariable("id") Long id) {
+    @Override
     public ResponseEntity<?> deletePerson(@PathVariable("id") Long id) {
         service.deletePerson(id);
         return ResponseEntity.noContent().build();
